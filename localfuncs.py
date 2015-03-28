@@ -8,22 +8,16 @@ def getCredents():
 		password = getpass.getpass("Please enter GitHub password: ")
 		credents = open(credentpath, 'w')
 		credents.write("%s\n%s" % (username,password))
-		return (username,password)
 	else:
 		credents = open(credentpath, 'r')
 		username = credents.readline()
 		password = credents.readline()
-		return (username, password)
-
-# prepare git repo locally by creating folder and running git init (and possibly pulling)
-def prepareDirectory():
-	pass
-
-
-
-# create github repo on github! return something if the repo exists already
-def createRepo():
-	pass
+	username = username.replace('\n', '')
+	password = password.replace('\n', '')
+	return (username, password)
 
 def deleteCredents():
 	os.remove("%s/.gitcredents" % os.getenv('HOME'))
+
+def folderExists(name):
+	return (os.path.exists(name) and os.path.isdir(name))
